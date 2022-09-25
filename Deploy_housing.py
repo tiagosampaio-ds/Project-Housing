@@ -9,7 +9,7 @@ import streamlit as st
 import joblib
 
 
-# In[8]:
+# In[9]:
 
 
 dados = pd.read_csv('data_train.csv')
@@ -23,8 +23,6 @@ st.text('This is a machine learning app to predict the median house value with i
         'Feel free to set the values of the features and make your predictions.')
 
 st.sidebar.write('Created by: Tiago Sampaio')
-                
-st.sidebar.write('Linkedin: [My Linkedin page](www.linkedin.com/in/tiagomsampaio)')
 
 st.sidebar.write('E-mail: tiagosampaio.pj@gmail.com')
 
@@ -109,10 +107,4 @@ if botao:
     modelo = joblib.load('housing.joblib')
     Valor_medio_casa = modelo.predict(features_prepared)
     f'The median house value within this block is $ {Valor_medio_casa[0]:.2f}' 
-
-
-# In[4]:
-
-
-get_ipython().system('streamlit run Deploy_housing.py')
 
