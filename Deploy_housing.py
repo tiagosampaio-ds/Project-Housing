@@ -9,7 +9,7 @@ import streamlit as st
 import joblib
 
 
-# In[2]:
+# In[8]:
 
 
 dados = pd.read_csv('data_train.csv')
@@ -22,6 +22,11 @@ st.text('This is a machine learning app to predict the median house value with i
         'The location based on the latitude and longitude will appears on the map.\n' 
         'Feel free to set the values of the features and make your predictions.')
 
+st.sidebar.write('Created by: Tiago Sampaio')
+                
+st.sidebar.write('Linkedin: [My Linkedin page](www.linkedin.com/in/tiagomsampaio)')
+
+st.sidebar.write('E-mail: tiagosampaio.pj@gmail.com')
 
 longitude = st.slider('Longitude: A measure of how far west a house is; a higher value is farther west', 
                       min_value=float(dados['longitude'].min()), 
@@ -33,7 +38,7 @@ latitude = st.slider('Latitude: A measure of how far north a house is; a higher 
                      max_value=float(dados['latitude'].max()), 
                      value=float(dados['latitude'].mean()))
 
-housing_median_age = st.slider('Housing median age: Total number of rooms within a block',
+housing_median_age = st.slider('Housing median age: Median age of a house within a block; a lower number is a newer building',
                                min_value=int(dados['housing_median_age'].min()),
                                max_value=int(dados['housing_median_age'].max()), 
                                value=int(dados['housing_median_age'].mean()))
@@ -87,7 +92,6 @@ features = {
             'housing_median_age': housing_median_age,
             'total_rooms': total_rooms,
             'total_bedrooms': total_bedrooms,
-            'population': population,
             'households': households,
             'median_income': median_income,
             'ocean_proximity': ocean_proximity,
@@ -101,69 +105,14 @@ botao = st.button('Predict median house value')
 if botao:                         
     pipe = joblib.load('pipe.joblib')
     features = pd.DataFrame(features, index=[0])
-    features_prepared = pipe.transform(features) #pd.DataFrame(pipe.transform(features), columns=pipe.get_feature_names_out())
+    features_prepared = pipe.transform(features)
     modelo = joblib.load('housing.joblib')
     Valor_medio_casa = modelo.predict(features_prepared)
-    f'The median house value within this block is $ {Valor_medio_casa[0]:.2f}' # como a saida é uma array, 
+    f'The median house value within this block is $ {Valor_medio_casa[0]:.2f}' 
 
 
-# In[8]:
+# In[4]:
 
 
-#!streamlit run Deploy_housing.py
-
-
-# In[66]:
-
-
-# dados = pd.read_csv('data_train.csv')
-
-# longitude = -122.23
-
-# latitude = 37.88
-
-# housing_median_age = 41
-
-# total_rooms = 880
-
-# total_bedrooms = 129
-
-# population = 322
-
-# households = 126
-
-# median_income = 8.3252
-
-# ocean_proximity = 'NEAR_BAY'
-
-# rooms_per_household = total_rooms/households
-
-# bedrooms_per_room = total_bedrooms/total_rooms
-
-# population_per_household = population/households
-                               
-# features = {
-#             'longitude': longitude, 
-#             'latitude': latitude,
-#             'housing_median_age': housing_median_age,
-#             'total_rooms': total_rooms,
-#             'total_bedrooms': total_bedrooms,
-#             'population': population,
-#             'households': households,
-#             'median_income': median_income,
-#             'ocean_proximity': ocean_proximity,
-#             'rooms_per_household': rooms_per_household,
-#             'bedrooms_per_room': bedrooms_per_room,
-#             'population_per_household': population_per_household
-# }                               
-
-
-                        
-# pipe = joblib.load('pipe.joblib')
-# features = pd.DataFrame(features, index=[0])
-# features_prepared = pipe.transform(features) #pd.DataFrame(pipe.transform(features), columns=pipe.get_feature_names_out())
-# modelo = joblib.load('housing.joblib')
-# Valor_medio_casa = modelo.predict(features_prepared)
-# f'O Valor médio da casa é $ {Valor_medio_casa[0]:.2f}' # como a saida é uma array, 
-#                                 #selecionando 0 garante que vai aparecer apenas o valor que queremos
+get_ipython().system('streamlit run Deploy_housing.py')
 
