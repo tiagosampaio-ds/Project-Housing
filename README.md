@@ -38,7 +38,7 @@ Answer two business questions
 
 - as higher the medianIncome, higher the medianHousevalue?
 
-Get a better prediction than the book 'Hands-On Machine learning with Scikit-Learn and TensorFlow', the tuned model with the train set get a RMSE: 49.682 and the final evaluation was 47.730,2 for the test set. The strategy is try different methods os scaling, hyperparameters, algorithms and try eliminate some features
+Get a better prediction than the book 'Hands-On Machine learning with Scikit-Learn and TensorFlow', the tuned model with the train set get a RMSE: 49.682 and the final evaluation was 47.730,2 for the test set. The strategy is try different methods of rescaling, hyperparameters, algorithms and try eliminate some features.
 
 ## Split train and test set
 Before the split, we can see that is a high concentration of the maximum value on the target. The book told us that the value was capped to 500.001 when actually was beyond that. So we are going to exclude this values for the algorithm can learn that the price can go beyond that limit.
